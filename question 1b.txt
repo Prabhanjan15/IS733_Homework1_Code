@@ -1,0 +1,49 @@
+lec_wat=0
+exp_read=0
+user_lec=[]
+user_exp=[]
+user_index=[]
+def get_count_of_lec_explanation(files,a):
+    global lec_wat
+    global exp_read
+    global user_lec
+    global user_exp
+    global user_index
+    current_df = pd.read_csv(files)
+    count_lec = 0
+    count_exp = 0
+    for index, row in current_df.iterrows():
+        item_id = row["item_id"]
+        if item_id[:1] == "l":
+            # print(file[1])
+            #print(item_id[:1])
+            count_lec += 1
+        if item_id[:1] == "e":
+            count_exp += 1
+    user_index.append(a)
+    user_lec.append(count_lec)
+    user_exp.append(count_exp)
+    lec_wat+=count_lec
+    exp_read+=count_exp
+    print("For user {0} Lecturs watched={1} and Explaination Read={2}\n".format(a,count_lec,count_exp))
+            
+
+parent_path = 'C:\\Users\\Prabhanjan Kulkarni\\Desktop\\IS 733\\EdNet-KT4\\KT4\\'
+path = glob.glob(parent_path+"/*.csv")
+i=0
+for file in path:
+        get_count_of_lec_explanation(file,(i+1))
+        i=i+1
+#c1, c2 = get_count_of_lec_explanation(file_names[0])
+print("Total Lectures watched=",lec_wat)
+print("Total explaination read=",exp_read)
+
+df=pd.DataFrame(user_index)
+df['Lecture Watched']=user_lec
+df['Explaination Read']=user_exp
+#print(c1, c2)
+
+#questions answered correctly
+count_series= userfinal_df.groupby(['question_id','final']).size()
+
+print(count_series)
